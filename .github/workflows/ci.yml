@@ -12,6 +12,10 @@ on:
       - master
       - develop
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     name: Build
@@ -114,6 +118,7 @@ jobs:
         run: ./gradlew publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
 
   deploy-staging:
     name: Deploy to Staging
