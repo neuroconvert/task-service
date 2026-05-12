@@ -5,6 +5,7 @@ plugins {
     id("org.springframework.boot") version "4.0.6"
     id("io.spring.dependency-management") version "1.1.7"
     jacoco
+    `maven-publish`
 }
 
 group = "com.neuroconvert"
@@ -64,5 +65,26 @@ sonar {
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.coverage.jacoco.xmlReportPaths",
             "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml")
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("bootJar") {
+            artifact(tasks.bootJar)
+            groupId = "com.neuroconvert"
+            artifactId = "task-service"
+            version = project.version.toString()
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/neuroconvert/task-service")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
