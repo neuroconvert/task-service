@@ -60,6 +60,8 @@ sonar {
     properties {
         property("sonar.projectKey", "neuroconvert_task-service")
         property("sonar.projectName", "task-service")
+        property("sonar.organization", "neuroconvert")
+        property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.coverage.jacoco.xmlReportPaths",
             "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml")
     }
